@@ -73,29 +73,16 @@ function playTrack(trackId){
                 }
             });
 
-            player.on('audio_error', function(){
-                return false;
-            });
-            player.on('no_streams', function(){
-                return false;
-            });
-
-            player.on('no_connection', function(){
-                return false;
-            });
-
             // set player timer
             playerInterval(player, track.duration);
 
             $('.jp-play, .jp-pause').click(function(e){
                 e.preventDefault();
-
                 player.isPaused() ? player.play() : player.pause();
             });
 
             $('.jp-mute, .jp-unmute').click(function(e){
                 e.preventDefault();
-
                 if(player.getVolume()){
                     player.setVolume(0);
                     $('.jp-mute').hide();
@@ -112,11 +99,9 @@ function playTrack(trackId){
 
 function timeFormat(time){
 	var totalSec = Math.round(parseInt(time)/1000);
-	
 	var minutes = parseInt( totalSec / 60 ) % 60;
 	var seconds = totalSec % 60;
 	var result = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
-	
 	return result;
 }
 
@@ -127,7 +112,6 @@ function playerInterval(player, duration){
         var currentPercent = parseInt((parseInt(player.currentTime()) / duration) * 100);
 
         $('.jp-play-bar').css('width', currentPercent+'%');
-
         $('.jp-current-time').empty().text(timeFormat(player.currentTime()));
     }, 500);
 }
