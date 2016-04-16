@@ -3,7 +3,12 @@ function previewTracks(){
     $('#tracks-wrapper').fadeOut().empty();
 
     SC.get('/tracks',{
-        original_format: 'mp3'
+        original_format: 'mp3',
+        sharing: 'public',
+        streamable: true,
+        downloadable: true,
+        state: 'finished',
+        track_type: 'original'
     }).then(function(tracks) {
 
         var html = '';
@@ -28,7 +33,7 @@ function previewTrack(track){
     html +=           '</a>';
     html +=         '</div>';
     html +=         '<div class="bottom padder m-b-sm">';
-    html +=           '<a href="#" class="pull-right add-favorite"><i class="fa fa-heart-o"></i></a>';
+    html +=           '<a href="#" class="pull-right download-track"><i class="fa fa-download"></i></a>';
     html +=           '<a href="#"><i class="fa fa-plus-circle"></i></a>';
     html +=         '</div>';
     html +=       '</div>';
@@ -68,15 +73,19 @@ function playTrack(trackId){
                 }
             });
 
-            setInterval(function(){
-                var currentPercent = parseInt((parseInt(player.currentTime()) / track.duration) * 100);
+            player.on('audio_error', function(){
+                return false;
+            });
+            player.on('no_streams', function(){
+                return false;
+            });
 
-                $('.jp-play-bar').css('width', currentPercent+'%');
+            player.on('no_connection', function(){
+                return false;
+            });
 
-                var currentTime = timeFormat(player.currentTime());
-                $('.jp-current-time').text(currentTime);
-            }, 500);
-
+            // set player timer
+            playerInterval(player, track.duration);
 
             $('.jp-play, .jp-pause').click(function(e){
                 e.preventDefault();
@@ -109,4 +118,29 @@ function timeFormat(time){
 	var result = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 	
 	return result;
+}
+
+var $playerInterval;
+function playerInterval(player, duration){
+    clearInterval($playerInterval);
+    $playerInterval = setInterval(function(){
+        var currentPercent = parseInt((parseInt(player.currentTime()) / duration) * 100);
+
+        $('.jp-play-bar').css('width', currentPercent+'%');
+
+        $('.jp-current-time').empty().text(timeFormat(player.currentTime()));
+    }, 500);
+}
+
+function showAlert(type, message, target){
+    if(typeof target == 'undefined'){
+        var target = '#content .wrapper';
+    }
+
+    var alertContent = '<div class="alert alert-'+type+'">';
+    alertContent +=         message;
+    alertContent +=     '<div>';
+
+    $(target).find('.alert').remove();
+    $(target).prepend(alertContent);
 }

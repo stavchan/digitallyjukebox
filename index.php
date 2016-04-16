@@ -2,7 +2,14 @@
 session_start();
 include_once 'scripts/functions.php';
 
-$tracks = rest_request('tracks');
+$tracks = rest_request('/tracks',[
+    'original_format'=> 'mp3',
+    'sharing'=> 'public',
+    'streamable'=> true,
+    'downloadable'=> true,
+    'state'=> 'finished',
+    'track_type'=> 'original'
+]);
 ?>
 
 <?php include_once 'partials/header.php'; ?>

@@ -23,7 +23,7 @@ function preview_track($track, $rest=false){
     $html .=           "</a>";
     $html .=         "</div>";
     $html .=         "<div class='bottom padder m-b-sm'>";
-    $html .=           "<a href='#' class='pull-right add-favorite'><i class='fa fa-heart-o'></i></a>";
+    $html .=           "<a href='#' class='pull-right download-track'><i class='fa fa-download'></i></a>";
     $html .=           "<a href='#'><i class='fa fa-plus-circle'></i></a>";
     $html .=         "</div>";
     $html .=       "</div>";
@@ -46,7 +46,7 @@ function preview_track($track, $rest=false){
 }
 
 function rest_request($url, $options=false){
-	$url = 'https://api.soundcloud.com/' . $url;
+	$url = 'https://api.soundcloud.com' . $url;
 	$clientid = SOUDNCLOUD_API; // Your API Client ID
 	
 	$url_options = '';
@@ -56,10 +56,10 @@ function rest_request($url, $options=false){
 		}
 	}
 	
-	$url_options .= "client_id={$clientid}";
+	$url_options .= "format=json&client_id={$clientid}";
 	 
 	$soundcloud_url = "{$url}?{$url_options}";
-	 
+
 	$data = file_get_contents($soundcloud_url);
 	return json_decode($data);
 }

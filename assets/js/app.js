@@ -392,16 +392,6 @@ $(function(){
     playTrack(trackId);
   });
 
-  $(document).on('click','.add-favorite', function(e){
-    e.preventDefault();
-
-    var trackId = $(this).parents('.item').data('track-id');
-    $.get('scripts/tracks/favorite.php',{'track-id': trackId}, function(data){
-      console.log($.parseJSON(data));
-    });
-  });
-
-
   //ajax form submit
   $('.ajax-form').submit(function(e){
     e.preventDefault();
