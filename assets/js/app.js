@@ -430,6 +430,10 @@ $(function(){
     e.preventDefault();
     var trackId = $(this).parents('.item').data('track-id');
 
+    $.get('scripts/select-playlist-modal.php',{trackId: trackId},function(result){
+      var res = $.parseJSON(result);
 
+      console.log(result);
+    });
   })
 });
