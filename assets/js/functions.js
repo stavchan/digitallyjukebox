@@ -22,37 +22,41 @@ function previewTracks(){
 }
 
 function previewTrack(track){
-    html = '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">';
-    html +=   '<div class="item" data-track-id="'+ track['id'] +'">';
-    html +=     '<div class="pos-rlt">';
-    html +=       '<div class="item-overlay opacity r r-2x bg-black">';
-    html +=         '<div class="center text-center m-t-n">';
-    html +=           '<a href="#" class="play-track">';
-    html +=             '<i class="icon-control-play i-2x"></i>';
-    html +=             '<i class="icon-control-pause i-2x text-active"></i>';
-    html +=           '</a>';
-    html +=         '</div>';
-    html +=         '<div class="bottom padder m-b-sm">';
-    html +=           '<a href="#" class="pull-right download-track"><i class="fa fa-download"></i></a>';
-    html +=           '<a href="#"><i class="fa fa-plus-circle"></i></a>';
-    html +=         '</div>';
-    html +=       '</div>';
+    if(track['streamable'] && track['downloadable']){
+        html = '<div class="col-xs-6 col-sm-4 col-md-3 col-lg-2">';
+        html +=   '<div class="item" data-track-id="'+ track['id'] +'">';
+        html +=     '<div class="pos-rlt">';
+        html +=       '<div class="item-overlay opacity r r-2x bg-black">';
+        html +=         '<div class="center text-center m-t-n">';
+        html +=           '<a href="#" class="play-track">';
+        html +=             '<i class="icon-control-play i-2x"></i>';
+        html +=             '<i class="icon-control-pause i-2x text-active"></i>';
+        html +=           '</a>';
+        html +=         '</div>';
+        html +=         '<div class="bottom padder m-b-sm">';
+        html +=           '<a href="#" class="pull-right download-track"><i class="fa fa-download"></i></a>';
+        html +=           '<a href="#" class="playlist-add"><i class="fa fa-plus-circle"></i></a>';
+        html +=         '</div>';
+        html +=       '</div>';
 
-    if(track['artwork_url']){
-        html +=       '<a href="#"><img src="'+ track['artwork_url'] +'" alt="" class="r r-2x img-full"></a>';
+        if(track['artwork_url']){
+            html +=       '<a href="#"><img src="'+ track['artwork_url'] +'" alt="" class="r r-2x img-full"></a>';
+        }else{
+            html +=       '<a href="#"><img src="assets/images/m0.jpg" alt="" class="r r-2x img-full"></a>';
+        }
+
+        html +=     '</div>';
+        html +=     '<div class="padder-v">';
+        html +=       '<a href="#" class="text-ellipsis">'+ track['title'] +'</a>';
+        html +=       '<a href="#" class="text-ellipsis text-xs text-muted">'+ (track['genre'] ? track['genre'] : 'Unknown') +'</a>';
+        html +=     '</div>';
+        html +=   '</div>';
+        html += '</div>';
+
+        return html;
     }else{
-        html +=       '<a href="#"><img src="assets/images/m0.jpg" alt="" class="r r-2x img-full"></a>';
+        return '';
     }
-
-    html +=     '</div>';
-    html +=     '<div class="padder-v">';
-    html +=       '<a href="#" class="text-ellipsis">'+ track['title'] +'</a>';
-    html +=       '<a href="#" class="text-ellipsis text-xs text-muted">'+ (track['genre'] ? track['genre'] : 'Unknown') +'</a>';
-    html +=     '</div>';
-    html +=   '</div>';
-    html += '</div>';
-
-    return html;
 }
 
 function playTrack(trackId){

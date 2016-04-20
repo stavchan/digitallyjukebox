@@ -425,4 +425,11 @@ $(function(){
   	var url = 'https://api.soundcloud.com/tracks/'+ trackId +'/download?client_id=' + $client_id;
   	window.open(url, '_blank');
   });
+
+  $(document).on('click','.playlist-add',function(e){
+    e.preventDefault();
+    var trackId = $(this).parents('.item').data('track-id');
+
+
+  })
 });
