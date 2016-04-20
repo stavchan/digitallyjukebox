@@ -375,8 +375,9 @@ Date.now = Date.now || function() { return +new Date; };
 }(jQuery);
 
 $(function(){
+	$client_id = 'aa5da74ab07b51ce2c025fefa20ab19e';
   // init souncloud api account
-  SC.initialize({ client_id: 'aa5da74ab07b51ce2c025fefa20ab19e' });
+  SC.initialize({ client_id: $client_id });
 
   // Refresh track list on homepage
   $('#refresh-btn').click(function(e){
@@ -414,5 +415,14 @@ $(function(){
         }
       }
     });
+  });
+  
+  $(document).on('click','.download-track',function(e){
+  	e.preventDefault();
+  	
+  	var trackId = $(this).parents('.item').data('track-id');
+  	
+  	var url = 'https://api.soundcloud.com/tracks/'+ trackId +'/download?client_id=' + $client_id;
+  	window.open(url, '_blank');
   });
 });

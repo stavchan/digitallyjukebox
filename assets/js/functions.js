@@ -128,3 +128,37 @@ function showAlert(type, message, target){
     $(target).find('.alert').remove();
     $(target).prepend(alertContent);
 }
+
+function showModal(content, options){
+	if(typeof options != 'undefined'){
+		var modalId = options['id'] ? options['id'] : 'showModal';
+		var modalBackdrop = options['backdrop'] ? options['backdrop'] : 'true';
+		var modalTitle = options['title'] ? options['title'] : '';
+	}else{
+		var modalId = 'showModal';
+		var modalBackdrop = 'true';
+		var modalTitle = '';
+	}
+	
+	var modal = '<div id="'+modalId+'" class="modal fade" tabindex="-1" data-backdrop="'+modalBackdrop+'" role="dialog">';
+		modal += '<div class="modal-dialog">';
+		modal +=	'<div class="modal-content">';
+		modal +=		'<div class="modal-header">';
+		modal +=			'<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>';
+		modal +=			'<h4 class="modal-title">'+modalTitle+'</h4>';
+		modal +=		'</div>';
+		modal +=		'<div class="modal-body">';
+		modal +=			content;
+		modal +=		'</div>';
+		modal +=		'<div class="modal-footer">';
+		modal +=			'<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>';
+		modal +=		'</div>';
+		modal +=	'</div><!-- /.modal-content -->';
+		modal += '</div><!-- /.modal-dialog -->';
+		modal += '</div><!-- /.modal -->';
+		
+	$('.modal').modal('hide');
+	$('.modal').remove();	
+	$('body').append(modal);
+	$('#'+modalId).modal();
+}
