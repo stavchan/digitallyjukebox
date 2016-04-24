@@ -42,7 +42,7 @@ function previewTrack(track){
         if(track['artwork_url']){
             html +=       '<a href="#"><img src="'+ track['artwork_url'] +'" alt="" class="r r-2x img-full"></a>';
         }else{
-            html +=       '<a href="#"><img src="assets/images/m0.jpg" alt="" class="r r-2x img-full"></a>';
+            html +=       '<a href="#"><img src="assets/images/logo.jpg" alt="" class="r r-2x img-full"></a>';
         }
 
         html +=     '</div>';

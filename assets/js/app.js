@@ -433,7 +433,31 @@ $(function(){
     $.get('scripts/select-playlist-modal.php',{trackId: trackId},function(result){
       var res = $.parseJSON(result);
 
-      console.log(result);
+      if(res.redirect){
+        window.location = res.redirect;
+      }else if(res.html){
+        showModal(res.html,{
+          id: 'add-playlist-modal',
+          title: 'Add Track to Playlist'
+        });
+
+        $('form','#add-playlist-modal').submit(function(e){
+          e.preventDefault();
+
+          $.post('scripts/add-playlist.php', {
+            data: $(this).serialize()
+          }, function(result){
+            var res = $.parseJSON(result);
+
+            if(res.done == 1){
+              $('#add-playlist-modal').modal('hide');
+              showAlert('success', 'Track added to playlist successfully');
+            }else{
+              // FIXME
+            }
+          });
+        });
+      }
     });
   })
 });

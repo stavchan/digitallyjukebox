@@ -32,7 +32,7 @@ function preview_track($track, $rest=false){
         if($data->artwork_url){
             $html .=       "<a href='#'><img src='{$data->artwork_url}' class='r r-2x img-full'></a>";
         }else{
-            $html .=       "<a href='#'><img src='assets/images/m0.jpg' class='r r-2x img-full'></a>";
+            $html .=       "<a href='#'><img src='assets/images/logo.jpg' class='r r-2x img-full'></a>";
         }
 
         $html .=     "</div>";

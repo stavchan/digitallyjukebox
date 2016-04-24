@@ -10,7 +10,8 @@ if(empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password
 }else{
     $username = clean_input($_POST['username']);
     $email = clean_input($_POST['email']);
-    $password = md5(clean_input($_POST['$password']));
+    $password = md5(clean_input($_POST['password']));
+    $role = 'user';
 
     // Check if username exists
     $query = "SELECT * FROM users WHERE username = '$username' LIMIT 1";
@@ -31,11 +32,14 @@ if(empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password
 
         header('location: ../signup.php');
     }else{
-        $query = "INSERT INTO users(username, email, password) VALUES('$username', '$email', '$password')";
+        $query = "INSERT INTO users(username, email, password, role) VALUES('$username', '$email', '$password', '$role')";
         $result = mysqli_query($conx, $query);
 
         if($result){
-            $_SESSION['user'] = $username;
+            $_SESSION['user']['username'] = $username;
+            $_SESSION['user']['email'] = $email;
+            $_SESSION['user']['id'] = mysqli_insert_id($conx);
+            $_SESSION['user']['role'] = $role;
             $_SESSION['notice'] = 'You have been successfully registered';
             header('location: ../index.php');
         }else{
