@@ -445,15 +445,13 @@ $(function(){
           e.preventDefault();
 
           $.post('scripts/add-playlist.php', {
-            data: $(this).serialize()
+            data: $(this).serialize() + '&track='+ $(this).parents('.item').data('track-id')
           }, function(result){
             var res = $.parseJSON(result);
 
             if(res.done == 1){
               $('#add-playlist-modal').modal('hide');
               showAlert('success', 'Track added to playlist successfully');
-            }else{
-              // FIXME
             }
           });
         });

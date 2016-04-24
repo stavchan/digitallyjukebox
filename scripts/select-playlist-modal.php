@@ -7,11 +7,13 @@ $return = [];
 
 if(isset($_SESSION['user'])){
     $user_id = $_SESSION['user']['id'];
+    $track = $_POST['track'];
 
     $query = "SELECT * FROM playlists WHERE user_id='$user_id'";
     $result = mysqli_query($conx, $query);
 
     $return['html'] = '<form>';
+    $return['html'] .=   '<input type="hidden" value="'.$track.'" name="track-id">';
     $return['html'] .=   '<div class="form-group">';
     $return['html'] .=       '<input type="text" name="playlist-title" class="form-control" placeholder="New playlist pame">';
     $return['html'] .=   '</div>';
