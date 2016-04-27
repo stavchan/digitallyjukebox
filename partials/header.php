@@ -32,9 +32,9 @@
                 <i class="icon-list"></i>
             </a>
             <a href="index.php" class="navbar-brand text-lt">
-                <i class="icon-earphones"></i>
+                <i class="icon-music-tone-alt"></i>
                 <img src="assets/images/logo.jpg" alt="." class="hide">
-                <span class="hidden-nav-xs m-l-sm">Musik</span>
+                <span class="hidden-nav-xs m-l-sm">Di Jukebox</span>
             </a>
             <a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">
                 <i class="icon-settings"></i>

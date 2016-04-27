@@ -36,6 +36,9 @@ if(empty($_POST['username']) || empty($_POST['email'])){
     $result = mysqli_query($conx, $query);
 
     if($result){
+        $_SESSION['user']['username'] = $username;
+        $_SESSION['user']['email'] = $email;
+
         $return['success'] = 'User infos is updated';
     }else if(mysqli_error($conx)){
         $return['errors']['base'][] = mysqli_error($conx);
