@@ -78,7 +78,7 @@ if(!empty($_GET['username'])){
                           <small class="text-uc text-xs text-muted">About me</small>
                           <p><?php echo $user['about_me']; ?></p>
                           <small class="text-uc text-xs text-muted">Info</small>
-                          <p><?php echo $user['about_me']; ?></p>
+                          <p><?php echo $user['info']; ?></p>
                           <div class="line"></div>
                           <small class="text-uc text-xs text-muted">Connection</small>
                           <p class="m-t-sm">

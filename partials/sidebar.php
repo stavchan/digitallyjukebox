@@ -30,6 +30,7 @@
                         <li class="m-b hidden-nav-xs"></li>
                     </ul>
                     <ul class="nav" data-ride="collapse">
+                        <?php if(isset($_SESSION['user'])): ?>
                         <li class="hidden-nav-xs padder m-t m-b-sm text-xs text-muted">
                             User
                         </li>
@@ -55,12 +56,14 @@
                                 <span>Settings</span>
                             </a>
                         </li>
+                        <?php endif ?>
                     </ul>
                 </nav>
                 <!-- / nav -->
             </div>
         </section>
 
+        <?php if(isset($_SESSION['user'])): ?>
         <footer class="footer hidden-xs no-padder text-center-nav-xs">
             <div class="bg hidden-xs ">
                 <div class="dropdown dropup wrapper-sm clearfix">
@@ -102,6 +105,7 @@
                 </div>
             </div>
         </footer>
+        <?php endif ?>
     </section>
 </aside>
 <!-- /.aside -->
