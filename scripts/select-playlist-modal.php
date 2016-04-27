@@ -7,7 +7,7 @@ $return = [];
 
 if(isset($_SESSION['user'])){
     $user_id = $_SESSION['user']['id'];
-    $track = $_POST['track'];
+    $track = $_GET['trackId'];
 
     $query = "SELECT * FROM playlists WHERE user_id='$user_id'";
     $result = mysqli_query($conx, $query);
