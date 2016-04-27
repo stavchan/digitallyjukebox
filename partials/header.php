@@ -2,8 +2,7 @@
 <html lang="en" class="app">
 <head>
     <meta charset="utf-8" />
-    <title>Musik | Web Application</title>
-    <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
+    <title>Digitally Jukebox</title>
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
     <link rel="stylesheet" href="assets/js/jPlayer/jplayer.flat.css" type="text/css" />

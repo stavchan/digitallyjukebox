@@ -13,14 +13,23 @@ if(isset($_SESSION['login_alert'])){
 <head>
   <meta charset="utf-8" />
   <title>Digitally Jukebox</title>
-  <meta name="description" content="app, web app, responsive, admin dashboard, admin, flat, flat ui, ui kit, off screen nav" />
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+  <script src="https://connect.soundcloud.com/sdk/sdk-3.0.0.js"></script>
+  <link rel="stylesheet" href="assets/js/jPlayer/jplayer.flat.css" type="text/css" />
   <link rel="stylesheet" href="assets/css/bootstrap.css" type="text/css" />
   <link rel="stylesheet" href="assets/css/animate.css" type="text/css" />
   <link rel="stylesheet" href="assets/css/font-awesome.min.css" type="text/css" />
   <link rel="stylesheet" href="assets/css/simple-line-icons.css" type="text/css" />
   <link rel="stylesheet" href="assets/css/font.css" type="text/css" />
   <link rel="stylesheet" href="assets/css/app.css" type="text/css" />
+  <script src="assets/js/jquery.min.js"></script>
+  <!-- Bootstrap -->
+  <script src="assets/js/bootstrap.js"></script>
+  <!-- App -->
+  <script src="assets/js/functions.js"></script>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/slimscroll/jquery.slimscroll.min.js"></script>
+  <script src="assets/js/app.plugin.js"></script>
 </head>
 <body class="bg-info dker">
 <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
@@ -63,13 +72,5 @@ if(isset($_SESSION['login_alert'])){
     </p>
   </div>
 </footer>
-<!-- / footer -->
-<script src="assets/jquery.min.js"></script>
-<!-- Bootstrap -->
-<script src="assets/bootstrap.js"></script>
-<!-- App -->
-<script src="assets/app.js"></script>
-<script src="assets/slimscroll/jquery.slimscroll.min.js"></script>
-<script src="assets/app.plugin.js"></script>
 </body>
 </html>

@@ -401,17 +401,24 @@ $(function(){
     var type = $(this).attr('method');
     var data = $(this).serialize();
 
+    var form = $(this);
+
     $.ajax({
       url: url,
       type: type,
       data: data,
-      success: function(data){
-        var data = $.parseJSON(data);
+      success: function(result){
+        var res = $.parseJSON(result);
 
-        if(data['errors']){
-          $.each(data['errors'], function(error){
-            console.log('errors')
-          });
+        form.find('.alert').remove();
+        form.find('.help-block').remove();
+        form.find('.has-error').removeClass('has-error');
+
+        if(res.errors){
+          showFormErrors(form, res.errors);
+        }else if(res.success){
+          var msg = '<div class="alert alert-success">'+res.success+'</div>';
+          form.prepend(msg);
         }
       }
     });

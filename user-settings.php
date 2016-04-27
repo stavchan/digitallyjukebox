@@ -20,7 +20,7 @@ $user = mysqli_fetch_assoc($result);
                 <div class="panel panel-default">
                   <div class="panel-heading font-bold">Settings</div>
                   <div class="panel-body">
-                    <form action="scripts/save-settings.php" method="POST" class="form-horizontal ajax-form">
+                    <form id="user-settings" action="scripts/save-settings.php" method="POST" class="form-horizontal ajax-form">
                         <div class="form-group">
                           <label class='col-lg-2 control-label'>Username</label>
                           <div class="col-lg-10">
@@ -78,7 +78,7 @@ $user = mysqli_fetch_assoc($result);
                         <div class="form-group">
                           <label class='col-lg-2 control-label'>Info</label>
                           <div class="col-lg-10">
-                            <input type="text" class="form-control" name="info" value="<?php echo $user['info']?>">
+                              <textarea class="form-control" name="info"><?php echo $user['info']?></textarea>
                           </div>
                         </div>
 

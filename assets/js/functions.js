@@ -166,3 +166,27 @@ function showModal(content, options){
 	$('body').append(modal);
 	$('#'+modalId).modal();
 }
+
+function showFormErrors(form, errors){
+    $.each(errors,function(index,value){
+        if(index == 'base'){
+            var base = '<div class="alert alert-danger">';
+            base += '<h4>You have current errors:</h4>';
+            base += '<ul>';
+
+            $.each(value, function(key, val){
+                base += '<li>'+val+'</li>';
+            });
+
+            base += '</ul>';
+
+            base += '</div';
+
+            $(form).prepend(base);
+        }else{
+            var input = $(".form-control[name='" + index + "']", form).parent();
+            input.addClass('has-error');
+            input.append("<span class='help-block'>"+ value +"</span>");
+        }
+    });
+}
