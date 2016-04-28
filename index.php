@@ -13,9 +13,7 @@ $tracks = rest_request('/tracks',[
 ?>
 
 <?php include_once 'partials/header.php'; ?>
-    <?php include_once 'partials/sidebar.php'; ?>
 
-    <section id="content">
     <section class="hbox stretch">
         <section>
             <section class="vbox">
@@ -43,6 +41,5 @@ $tracks = rest_request('/tracks',[
         <!-- / side content -->
     </section>
     <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
-</section>
 
 <?php include_once 'partials/footer.php'; ?>

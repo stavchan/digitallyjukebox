@@ -375,7 +375,8 @@ Date.now = Date.now || function() { return +new Date; };
 }(jQuery);
 
 $(function(){
-	$client_id = 'aa5da74ab07b51ce2c025fefa20ab19e';
+  $client_id = 'aa5da74ab07b51ce2c025fefa20ab19e';
+
   // init souncloud api account
   SC.initialize({ client_id: $client_id });
 
@@ -383,6 +384,12 @@ $(function(){
   $('#refresh-btn').click(function(e){
     e.preventDefault();
     previewTracks();
+  });
+
+  // init datepicker
+  $('.datepicker').datepicker({
+    autoclose: true,
+    format: 'yyyy-mm-dd'
   });
 
   // Play Track when click on it
@@ -416,9 +423,8 @@ $(function(){
 
         if(res.errors){
           showFormErrors(form, res.errors);
-        }else if(res.success){
-          var msg = '<div class="alert alert-success">'+res.success+'</div>';
-          form.prepend(msg);
+        }else if(res.location){
+          window.location = res.location;
         }
       }
     });
@@ -451,14 +457,20 @@ $(function(){
         $('form','#add-playlist-modal').submit(function(e){
           e.preventDefault();
 
-          $.post('scripts/add-playlist.php', {
-            data: $(this).serialize() + '&track='+ $(this).parents('.item').data('track-id')
-          }, function(result){
+          var form = $(this);
+
+          $.post('scripts/add-playlist.php', $(this).serialize(), function(result){
             var res = $.parseJSON(result);
+
+            form.find('.alert').remove();
+            form.find('.help-block').remove();
+            form.find('.has-error').removeClass('has-error');
 
             if(res.done == 1){
               $('#add-playlist-modal').modal('hide');
               showAlert('success', 'Track added to playlist successfully');
+            }else if(res.errors){
+              showFormErrors(form, res.errors);
             }
           });
         });

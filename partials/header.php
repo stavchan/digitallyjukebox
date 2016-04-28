@@ -1,3 +1,17 @@
+<?php
+
+if (!isset($_SESSION)) session_start();
+
+if(isset($_SESSION['notice'])){
+    $notice = $_SESSION['notice'];
+    unset($_SESSION['notice']);
+}else if(isset($_SESSION['alert'])){
+    $alert = $_SESSION['alert'];
+    unset($_SESSION['alert']);
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en" class="app">
 <head>
@@ -11,11 +25,13 @@
     <link rel="stylesheet" href="assets/css/font-awesome.min.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/simple-line-icons.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/font.css" type="text/css" />
+    <link rel="stylesheet" href="assets/css/datepicker.css" type="text/css" />
     <link rel="stylesheet" href="assets/css/app.css" type="text/css" />
     <script src="assets/js/jquery.min.js"></script>
     <!-- Bootstrap -->
     <script src="assets/js/bootstrap.js"></script>
     <!-- App -->
+    <script src="assets/js/bootstrap-datepicker.js"></script>
     <script src="assets/js/functions.js"></script>
     <script src="assets/js/app.js"></script>
     <script src="assets/js/slimscroll/jquery.slimscroll.min.js"></script>
@@ -123,3 +139,15 @@
     </header>
     <section>
         <section class="hbox stretch">
+            <?php include_once 'partials/sidebar.php'; ?>
+                <section id="content">
+
+                    <?php if(isset($notice)): ?>
+                        <div class="alert alert-success">
+                            <?php echo $notice; ?>
+                        </div>
+                    <?php elseif(isset($alert)): ?>
+                        <div class="alert alert-warning">
+                            <?php echo $alert; ?>
+                        </div>
+                    <?php endif ?>

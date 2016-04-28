@@ -39,7 +39,9 @@ if(empty($_POST['username']) || empty($_POST['email'])){
         $_SESSION['user']['username'] = $username;
         $_SESSION['user']['email'] = $email;
 
-        $return['success'] = 'User infos is updated';
+        $_SESSION['notice'] = 'User infos is updated';
+
+        $return['location'] = 'user-settings.php';
     }else if(mysqli_error($conx)){
         $return['errors']['base'][] = mysqli_error($conx);
     }

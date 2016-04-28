@@ -1,6 +1,9 @@
 <?php
 
 session_start();
+if(isset($_SESSION['user'])){
+  header('location: index.php');
+}
 
 if(isset($_SESSION['login_alert'])){
   $alert = $_SESSION['login_alert'];
