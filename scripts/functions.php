@@ -7,7 +7,7 @@ function clean_input($input){
 
 function preview_track($track, $rest=false){
     if($rest){
-    	$data = rest_request('tracks/'.$track);
+    	$data = rest_request('/tracks/'.$track);
     }else{
     	$data = $track;
     }
@@ -65,4 +65,12 @@ function rest_request($url, $options=false){
 
 	$data = file_get_contents($soundcloud_url);
 	return json_decode($data);
+}
+
+function time_format($time){
+    $totalSec = round((int)($time)/1000);
+    $minutes = (int)( $totalSec / 60 ) % 60;
+    $seconds = $totalSec % 60;
+    $result = ($minutes < 10 ? "0" . $minutes : $minutes) . ":" . ($seconds  < 10 ? "0" . $seconds : $seconds);
+    return $result;
 }
