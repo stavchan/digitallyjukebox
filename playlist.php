@@ -53,7 +53,7 @@ if(!empty($_GET['id'])){
                                 <?php while($row = mysqli_fetch_assoc($tracks)): ?>
                                     <?php $track = rest_request('/tracks/'.$row['soundcloud_track_id']); ?>
 
-                                    <li class="list-group-item">
+                                    <li class="list-group-item item" data-track-id="<?php echo $track->id ?>">
                                         <div class="pull-right m-l">
                                             <a href="#" class="m-r-sm"><i class="icon-cloud-download"></i></a>
                                             <?php if(isset($_SESSION['user'])): ?>
@@ -61,7 +61,7 @@ if(!empty($_GET['id'])){
                                                 <a href="#"><i class="icon-close"></i></a>
                                             <?php endif ?>
                                         </div>
-                                        <a href="#" class="jp-play-me m-r-sm pull-left">
+                                        <a href="#" class="play-track m-r-sm pull-left">
                                             <i class="icon-control-play text"></i>
                                             <i class="icon-control-pause text-active"></i>
                                         </a>
