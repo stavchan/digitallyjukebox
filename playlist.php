@@ -56,12 +56,12 @@ if(!empty($_GET['id'])){
                                 <?php while($row = mysqli_fetch_assoc($tracks)): ?>
                                     <?php $track = rest_request('/tracks/'.$row['soundcloud_track_id']); ?>
 
-                                    <li class="list-group-item item" data-track-id="<?php echo $track->id ?>">
+                                    <li class="list-group-item item" data-track-id="<?php echo $track->id ?>" data-playlist-id="<?php echo $playlist_id ?>">
                                         <div class="pull-right m-l">
-                                            <a href="#" class="m-r-sm"><i class="icon-cloud-download"></i></a>
+                                            <a href="#" class="download-track m-r-sm"><i class="icon-cloud-download"></i></a>
                                             <?php if(isset($_SESSION['user'])): ?>
-                                                <a href="#" class="m-r-sm"><i class="icon-plus"></i></a>
-                                                <a href="#"><i class="icon-close"></i></a>
+                                                <a href="#" class="m-r-sm playlist-add"><i class="icon-plus"></i></a>
+                                                <a href="#" class="remove-track"><i class="icon-close"></i></a>
                                             <?php endif ?>
                                         </div>
                                         <a href="#" class="play-track m-r-sm pull-left">
@@ -106,8 +106,9 @@ if(!empty($_GET['id'])){
             <section class="col-sm-3 lt">
                 <section class="vbox">
                     <form id="playlist-comment">
+                        <input type="hidden" name="playlist" value="<?php echo $playlist_id; ?>">
                         <div class="form-group">
-                            <textarea class="form-control"></textarea>
+                            <textarea class="form-control" name="comment"></textarea>
                         </div>
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </form>
