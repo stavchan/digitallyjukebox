@@ -17,7 +17,7 @@ if(isset($_SESSION['user'])){
             $result = mysqli_query($conx, $query);
 
             if($result){
-                $result['done'] = true;
+                $return['done'] = true;
             }else{
                 $return['errors']['base'][] = mysqli_error($conx);
             }

@@ -477,4 +477,20 @@ $(function(){
       }
     });
   })
+
+  $('form#playlist-comment').submit(function(e){
+    e.preventDefault();
+
+    var form = $(this);
+
+    $.post('scripts/save-playlist-comment.php', $(this).serialize(), function(data){
+      var res = $.parseJSON(data);
+
+      if(res.errors){
+        showFormErrors(form, res.errors);
+      }else if(res.html){
+        $('.scrollable','#playlist-comments').html(res.html);
+      }
+    });
+  });
 });

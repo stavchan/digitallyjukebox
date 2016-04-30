@@ -61,8 +61,6 @@ function previewTrack(track){
 
 function playTrack(trackId){
     SC.get('/tracks/'+trackId).then(function(track){
-        $('.jp-duration').text(timeFormat(track.duration));
-
         SC.stream('/tracks/'+trackId).then(function(player){
             player.play();
 
@@ -79,24 +77,6 @@ function playTrack(trackId){
 
             // set player timer
             playerInterval(player, track.duration);
-
-            $('.jp-play, .jp-pause').click(function(e){
-                e.preventDefault();
-                player.isPaused() ? player.play() : player.pause();
-            });
-
-            $('.jp-mute, .jp-unmute').click(function(e){
-                e.preventDefault();
-                if(player.getVolume()){
-                    player.setVolume(0);
-                    $('.jp-mute').hide();
-                    $('.jp-unmute').show();
-                }else{
-                    player.setVolume(1);
-                    $('.jp-unmute').hide();
-                    $('.jp-mute').show();
-                }
-            });
         });
     });
 }
@@ -113,10 +93,30 @@ var $playerInterval;
 function playerInterval(player, duration){
     clearInterval($playerInterval);
     $playerInterval = setInterval(function(){
+        if(player.isPaused()){
+            $('.jp-pause').hide();
+            $('.jp-play').show();
+        }else{
+            $('.jp-play').hide();
+            $('.jp-pause').show();
+        }
+
+        if(player.getVolume()){
+            $('.jp-mute').show();
+            $('.jp-unmute').hide();
+        }else{
+            $('.jp-unmute').show();
+            $('.jp-mute').hide();
+        }
+
+        bindPlayBtns(player);
+        bindVolumeBtns(player);
+
         var currentPercent = parseInt((parseInt(player.currentTime()) / duration) * 100);
 
         $('.jp-play-bar').css('width', currentPercent+'%');
         $('.jp-current-time').empty().text(timeFormat(player.currentTime()));
+        $('.jp-duration').text(timeFormat(duration));
     }, 500);
 }
 
@@ -188,5 +188,27 @@ function showFormErrors(form, errors){
             input.addClass('has-error');
             input.append("<span class='help-block'>"+ value +"</span>");
         }
+    });
+}
+
+function bindVolumeBtns(player){
+    $(document).on('click','.jp-mute, .jp-unmute', function(e){
+        e.preventDefault();
+        if(player.getVolume()){
+            player.setVolume(0);
+            $('.jp-mute').hide();
+            $('.jp-unmute').show();
+        }else{
+            player.setVolume(1);
+            $('.jp-unmute').hide();
+            $('.jp-mute').show();
+        }
+    });
+}
+
+function bindPlayBtns(player){
+    $(document).on('click','.jp-play, .jp-pause', function(e){
+        e.preventDefault();
+        player.isPaused() ? player.play() : player.pause();
     });
 }

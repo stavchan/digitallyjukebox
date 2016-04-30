@@ -12,7 +12,7 @@ $result = mysqli_query($conx, $query);
 
 <section class="vbox">
     <section class="scrollable padder-lg">
-        <h2 class="font-thin m-b">Acoustic</h2>
+        <h2 class="font-thin m-b">Playlists by Users</h2>
         <div class="row row-sm">
 
             <?php if(mysqli_num_rows($result)): ?>
@@ -37,7 +37,9 @@ $result = mysqli_query($conx, $query);
             <?php endif ?>
 
         </div>
+
     </section>
+    <?php include_once 'partials/player.php';?>
 </section>
 
 <?php include_once 'partials/footer.php'; ?>

@@ -14,6 +14,9 @@ if(!empty($_GET['id'])){
 
         $query = "SELECT * FROM tracks WHERE playlist_id = '$playlist_id'";
         $tracks = mysqli_query($conx, $query);
+
+        $query = "SELECT * FROM comments JOIN users ON comments.user_id=users.id WHERE playlist_id = '$playlist_id'";
+        $comments = mysqli_query($conx, $query);
     }else{
         header('location: '.$_SERVER["HTTP_REFERER"]);
     }
@@ -78,226 +81,36 @@ if(!empty($_GET['id'])){
                 </section>
             </aside>
             <!-- / side content -->
-            <section class="col-sm-4 no-padder bg">
+            <section id="playlist-comments" class="col-sm-4 no-padder bg">
                 <section class="vbox">
                     <section class="scrollable hover">
                         <ul class="list-group list-group-lg no-bg auto m-b-none m-t-n-xxs">
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/m0.jpg" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Little Town</span>
-                                    <small class="text-muted">by Soph Ashe</small>
-                                </a>
-                            </li>
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/a1.png" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Get lacinia odio sem nec elit</span>
-                                    <small class="text-muted">by Filex</small>
-                                </a>
-                            </li>
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/a2.png" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Donec sed odio du</span>
-                                    <small class="text-muted">by Dan Doorack</small>
-                                </a>
-                            </li>
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/a3.png" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Curabitur blandit tempu</span>
-                                    <small class="text-muted">by Foxes</small>
-                                </a>
-                            </li>
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/a4.png" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Urna mollis ornare vel eu leo</span>
-                                    <small class="text-muted">by Chris Fox</small>
-                                </a>
-                            </li>
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/a5.png" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Faucibus dolor auctor</span>
-                                    <small class="text-muted">by Lauren Taylor</small>
-                                </a>
-                            </li>
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/a6.png" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Praesent commodo cursus magn</span>
-                                    <small class="text-muted">by Chris Fox</small>
-                                </a>
-                            </li>
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/a7.png" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Vestibulum id</span>
-                                    <small class="text-muted">by Milian</small>
-                                </a>
-                            </li>
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/a8.png" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Blandit tempu</span>
-                                    <small class="text-muted">by Amanda Conlan</small>
-                                </a>
-                            </li>
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/a9.png" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Vestibulum ullamcorpe quis malesuada augue mco rpe</span>
-                                    <small class="text-muted">by Dan Doorack</small>
-                                </a>
-                            </li>
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/a10.png" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Natis ipsum ac feugiat</span>
-                                    <small class="text-muted">by Hamburg</small>
-                                </a>
-                            </li>
-                            <li class="list-group-item clearfix">
-                                <a href="#" class="jp-play-me pull-right m-t-sm m-l text-md">
-                                    <i class="icon-control-play text"></i>
-                                    <i class="icon-control-pause text-active"></i>
-                                </a>
-                                <a href="#" class="pull-left thumb-sm m-r">
-                                    <img src="images/a0.png" alt="...">
-                                </a>
-                                <a class="clear" href="#">
-                                    <span class="block text-ellipsis">Sec condimentum au</span>
-                                    <small class="text-muted">by Amanda Conlan</small>
-                                </a>
-                            </li>
+
+                            <?php if(mysqli_num_rows($comments)): ?>
+                                <?php while($comment = mysqli_fetch_assoc($comments)): ?>
+                                    <li class="list-group-item clearfix">
+                                        <a href="#" class="pull-left thumb-sm m-r">
+                                            <img src="assets/images/m0.jpg" alt="...">
+                                        </a>
+                                        <a class="clear" href="#">
+                                            <span class="block text-ellipsis"><?php echo $comment['comment'] ?></span>
+                                            <small class="text-muted">by <?php echo $comment['username'] ?></small>
+                                        </a>
+                                    </li>
+                                <?php endwhile ?>
+                            <?php endif ?>
                         </ul>
                     </section>
                 </section>
             </section>
-            <section class="col-sm-3 no-padder lt">
+            <section class="col-sm-3 lt">
                 <section class="vbox">
-                    <section class="scrollable hover">
-                        <div class="m-t-n-xxs">
-                            <div class="item pos-rlt">
-                                <a href="#" class="item-overlay active opacity wrapper-md font-xs">
-                                    <span class="block h3 font-bold text-info">Find</span>
-                                    <span class="text-muted">Search the music you like</span>
-                                    <span class="bottom wrapper-md block">- <i class="icon-arrow-right i-lg pull-right"></i></span>
-                                </a>
-                                <a href="#">
-                                    <img class="img-full" src="images/m40.jpg" alt="...">
-                                </a>
-                            </div>
-                            <div class="item pos-rlt">
-                                <a href="#" class="item-overlay active opacity wrapper-md font-xs text-right">
-                                    <span class="block h3 font-bold text-warning text-u-c">Listen</span>
-                                    <span class="text-muted">Find the peace in your heart</span>
-                                    <span class="bottom wrapper-md block"><i class="icon-arrow-right i-lg pull-left"></i> -</span>
-                                </a>
-                                <a href="#">
-                                    <img class="img-full" src="images/m41.jpg" alt="...">
-                                </a>
-                            </div>
-                            <div class="item pos-rlt">
-                                <a href="#" class="item-overlay active opacity wrapper-md font-xs">
-                                    <span class="block h3 font-bold text-success text-u-c">Share</span>
-                                    <span class="text-muted">Share the good songs with your loves</span>
-                                    <span class="bottom wrapper-md block">- <i class="icon-arrow-right i-lg pull-right"></i></span>
-                                </a>
-                                <a href="#">
-                                    <img class="img-full" src="images/m42.jpg" alt="...">
-                                </a>
-                            </div>
-                            <div class="item pos-rlt">
-                                <a href="#" class="item-overlay active opacity wrapper-md font-xs text-right">
-                                    <span class="block h3 font-bold text-white text-u-c">2014</span>
-                                    <span class="text-muted">Find, Listen &amp; Share</span>
-                                    <span class="bottom wrapper-md block"><i class="icon-arrow-right i-lg pull-left"></i> -</span>
-                                </a>
-                                <a href="#">
-                                    <img class="img-full" src="images/m44.jpg" alt="...">
-                                </a>
-                            </div>
-                            <div class="item pos-rlt">
-                                <a href="#" class="item-overlay active opacity wrapper-md font-xs">
-                                    <span class="block h3 font-bold text-danger-lter text-u-c">Top10</span>
-                                    <span class="text-muted">Selected songs</span>
-                                    <span class="bottom wrapper-md block">- <i class="icon-arrow-right i-lg pull-right"></i></span>
-                                </a>
-                                <a href="#">
-                                    <img class="img-full" src="images/m45.jpg" alt="...">
-                                </a>
-                            </div>
+                    <form id="playlist-comment">
+                        <div class="form-group">
+                            <textarea class="form-control"></textarea>
                         </div>
-                    </section>
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </form>
                 </section>
             </section>
         </section>

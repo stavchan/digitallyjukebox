@@ -14,7 +14,7 @@ $tracks = mysqli_query($conx, $query);
         <section>
             <section class="vbox">
                 <section class="scrollable padder-lg w-f-md" id="bjax-target">
-                    <h2 class="font-thin m-b">Tracks <span class="musicbar animate inline m-l-sm"
+                    <h2 class="font-thin m-b">Tracks by Users <span class="musicbar animate inline m-l-sm"
                                                              style="width:20px;height:20px">
                     <span class="bar1 a1 bg-primary lter"></span>
                     <span class="bar2 a2 bg-info lt"></span>
