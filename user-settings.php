@@ -17,7 +17,7 @@ $user = mysqli_fetch_assoc($result);
         <div class="panel panel-default">
           <div class="panel-heading font-bold">Settings</div>
           <div class="panel-body">
-            <form id="user-settings" action="scripts/save-settings.php" method="POST" class="form-horizontal ajax-form">
+            <form id="user-settings" action="scripts/save_settings.php" method="POST" class="form-horizontal ajax-form">
                 <div class="form-group">
                   <label class='col-lg-2 control-label'>Username</label>
                   <div class="col-lg-10">

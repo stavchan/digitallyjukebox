@@ -62,19 +62,6 @@ function previewTrack(track){
 function playTrack(trackId){
     SC.get('/tracks/'+trackId).then(function(track){
         SC.stream('/tracks/'+trackId).then(function(player){
-            player.play();
-
-            // when audio controller changes state (e.g. from pause to play)
-            player.on('state-change', function(){
-                if(player.isPaused()){
-                    $('.jp-play').show();
-                    $('.jp-pause').hide();
-                }else{
-                    $('.jp-play').hide();
-                    $('.jp-pause').show();
-                }
-            });
-
             // set player timer
             playerInterval(player, track.duration);
         });
@@ -92,8 +79,25 @@ function timeFormat(time){
 var $playerInterval;
 function playerInterval(player, duration){
     clearInterval($playerInterval);
-    $playerInterval = setInterval(function(){
+    if(typeof $player != 'undefined')
+        $player.pause();
+
+    $player = player;
+    $player.play();
+
+    // when audio controller changes state (e.g. from pause to play)
+    $player.on('state-change', function(){
         if(player.isPaused()){
+            $('.jp-play').show();
+            $('.jp-pause').hide();
+        }else{
+            $('.jp-play').hide();
+            $('.jp-pause').show();
+        }
+    });
+
+    $playerInterval = setInterval(function(){
+        if($player.isPaused()){
             $('.jp-pause').hide();
             $('.jp-play').show();
         }else{
@@ -101,7 +105,7 @@ function playerInterval(player, duration){
             $('.jp-pause').show();
         }
 
-        if(player.getVolume()){
+        if($player.getVolume()){
             $('.jp-mute').show();
             $('.jp-unmute').hide();
         }else{
@@ -109,13 +113,13 @@ function playerInterval(player, duration){
             $('.jp-mute').hide();
         }
 
-        bindPlayBtns(player);
-        bindVolumeBtns(player);
+        bindPlayBtns($player);
+        bindVolumeBtns($player);
 
-        var currentPercent = parseInt((parseInt(player.currentTime()) / duration) * 100);
+        var currentPercent = parseInt((parseInt($player.currentTime()) / duration) * 100);
 
         $('.jp-play-bar').css('width', currentPercent+'%');
-        $('.jp-current-time').empty().text(timeFormat(player.currentTime()));
+        $('.jp-current-time').empty().text(timeFormat($player.currentTime()));
         $('.jp-duration').text(timeFormat(duration));
     }, 500);
 }
@@ -191,24 +195,24 @@ function showFormErrors(form, errors){
     });
 }
 
-function bindVolumeBtns(player){
+function bindVolumeBtns($player){
     $(document).on('click','.jp-mute, .jp-unmute', function(e){
         e.preventDefault();
-        if(player.getVolume()){
-            player.setVolume(0);
+        if($player.getVolume()){
+            $player.setVolume(0);
             $('.jp-mute').hide();
             $('.jp-unmute').show();
         }else{
-            player.setVolume(1);
+            $player.setVolume(1);
             $('.jp-unmute').hide();
             $('.jp-mute').show();
         }
     });
 }
 
-function bindPlayBtns(player){
+function bindPlayBtns($player){
     $(document).on('click','.jp-play, .jp-pause', function(e){
         e.preventDefault();
-        player.isPaused() ? player.play() : player.pause();
+        $player.isPaused() ? $player.play() : $player.pause();
     });
 }

@@ -445,7 +445,7 @@ $(function(){
   	var trackId = $(this).parents('.item').data('track-id');
   	var playlistId = $(this).parents('.item').data('playlist-id');
 
-    $.get('scripts/remove-track.php', {track: trackId, playlist: playlistId}, function(data){
+    $.get('scripts/remove_track.php', {track: trackId, playlist: playlistId}, function(data){
       var res = $.parseJSON(data);
 
       if(res.done){
@@ -458,7 +458,7 @@ $(function(){
     e.preventDefault();
     var trackId = $(this).parents('.item').data('track-id');
 
-    $.get('scripts/select-playlist-modal.php',{trackId: trackId},function(result){
+    $.get('scripts/select_playlist_modal.php',{trackId: trackId},function(result){
       var res = $.parseJSON(result);
 
       if(res.redirect){
@@ -474,7 +474,7 @@ $(function(){
 
           var form = $(this);
 
-          $.post('scripts/add-playlist.php', $(this).serialize(), function(result){
+          $.post('scripts/add_playlist.php', $(this).serialize(), function(result){
             var res = $.parseJSON(result);
 
             form.find('.alert').remove();
@@ -498,7 +498,7 @@ $(function(){
 
     var form = $(this);
 
-    $.post('scripts/save-playlist-comment.php', $(this).serialize(), function(data){
+    $.post('scripts/save_playlist_comment.php', $(this).serialize(), function(data){
       var res = $.parseJSON(data);
 
       if(res.errors){

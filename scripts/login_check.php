@@ -8,7 +8,7 @@ if(empty($_POST['email']) && empty($_POST['password'])){
     header('location: ../login.php');
 }else{
     $email = mysqli_real_escape_string($conx, $_POST['email']);
-    $password = md5(mysqli_real_escape_string($_POST['password']));
+    $password = md5(mysqli_real_escape_string($conx, $_POST['password']));
 
     $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password' LIMIT 1";
     $result = mysqli_query($conx, $query);

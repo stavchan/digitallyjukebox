@@ -12,6 +12,9 @@ if(!empty($_GET['username'])){
     $user = mysqli_fetch_assoc($result);
     $user_id = $user['id'];
 
+    $query = "SELECT comments.comment, comments.created_at, playlists.title, playlists.id FROM comments JOIN playlists ON comments.playlist_id=playlists.id WHERE comments.user_id = '$user_id'";
+    $comments = mysqli_query($conx, $query);
+
   }else{
     $_SESSION['alert'] = 'There is no user with this username';
     header('location: index.php');
@@ -215,20 +218,16 @@ if(!empty($_GET['username'])){
               <section class="scrollable padder-v">
                 <div class="panel">
                   <h4 class="font-thin padder">Latest Comments</h4>
-                  <ul class="list-group">
-                    <li class="list-group-item">
-                        <p>Wellcome <a href="#" class="text-info">@Drew Wllon</a> and play this web application template, have fun1 </p>
-                        <small class="block text-muted"><i class="fa fa-clock-o"></i> 2 minuts ago</small>
-                    </li>
-                    <li class="list-group-item">
-                        <p>Morbi nec <a href="#" class="text-info">@Jonathan George</a> nunc condimentum ipsum dolor sit amet, consectetur</p>
-                        <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 hour ago</small>
-                    </li>
-                    <li class="list-group-item">
-                        <p><a href="#" class="text-info">@Josh Long</a> Vestibulum ullamcorper sodales nisi nec adipiscing elit. Morbi id neque quam. Aliquam sollicitudin venenatis</p>
-                        <small class="block text-muted"><i class="fa fa-clock-o"></i> 2 hours ago</small>
-                    </li>
-                  </ul>
+                  <?php if(mysqli_num_rows($comments)): ?>
+                    <ul class="list-group">
+                      <?php while($comment = mysqli_fetch_assoc($comments)): ?>
+                          <li class="list-group-item">
+                              <p><a href="playlist.php?id=<?php echo $comment['id'] ?>" class="text-info">@<?php echo $comment['title'] ?></a> <?php echo $comment['comment'] ?></p>
+                              <small class="block text-muted"><i class="fa fa-clock-o"></i> <?php echo $comment['created_at'] ?></small>
+                          </li>
+                      <?php endwhile ?>
+                    </ul>
+                  <?php endif ?>
                 </div>
               </section>
             </section>
