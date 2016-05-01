@@ -105,6 +105,8 @@ $user = mysqli_fetch_assoc($result);
           </div>
         </div>
     </section>
+      <?php include_once 'partials/player.php'; ?>
+
   </section>
   <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
 <?php include_once 'partials/footer.php'; ?>

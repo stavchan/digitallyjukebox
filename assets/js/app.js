@@ -508,4 +508,18 @@ $(function(){
       }
     });
   });
+
+  $('.follow-btn').click(function(){
+    var user_id = $(this).data('user');
+    var action = $(this).hasClass('active') ? 'unfollow' : 'follow';
+
+
+    $.get('scripts/follow_user.php', {action: action, user: user_id}, function(data){
+      var res = $.parseJSON(data);
+
+      if(res.done){
+        $('.follow-btn').toggleClass('active');
+      }
+    });
+  });
 });

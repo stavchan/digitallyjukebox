@@ -11,8 +11,35 @@ if(!empty($_GET['username'])){
   if(mysqli_num_rows($result)){
     $user = mysqli_fetch_assoc($result);
     $user_id = $user['id'];
+    $guest = $_SESSION['user']['id'];
 
-    $query = "SELECT comments.comment, comments.created_at, playlists.title, playlists.id FROM comments JOIN playlists ON comments.playlist_id=playlists.id WHERE comments.user_id = '$user_id'";
+    // COUNT follows
+    $query = "SELECT COUNT(CASE WHEN follower='$user_id' THEN 1 ELSE NULL END) as following, COUNT(CASE WHEN following='$user_id' THEN 1 ELSE NULL END) as followers FROM followers";
+    $follows = mysqli_fetch_assoc(mysqli_query($conx, $query));
+
+    // GET following users
+    $query = "SELECT users.username, users.username, users.country, users.city FROM followers
+              JOIN users ON users.id=followers.following WHERE followers.follower='$user_id'";
+    $followings = mysqli_query($conx, $query);
+
+    // GET followers users
+    $query = "SELECT users.username, users.username, users.country, users.city FROM followers
+              JOIN users ON users.id=followers.follower WHERE followers.following='$user_id'";
+    $followers = mysqli_query($conx, $query);
+
+    $query = "SELECT * FROM followers WHERE follower='$guest' AND following='$user_id' LIMIT 1";
+    $follow_btn = mysqli_query($conx, $query);
+
+    // GET playlist
+    $query = "SELECT playlists.id, playlists.title, COUNT(tracks.id) as tracks FROM playlists
+              JOIN tracks ON playlists.id=tracks.playlist_id
+              WHERE playlists.user_id='$user_id'
+              GROUP BY playlists.id";
+    $playlists = mysqli_query($conx, $query);
+
+    // GET latest 5 comments of user
+    $query = "SELECT comments.comment, comments.created_at, playlists.title, playlists.id FROM comments
+              JOIN playlists ON comments.playlist_id=playlists.id WHERE comments.user_id = '$user_id' LIMIT 5";
     $comments = mysqli_query($conx, $query);
 
   }else{
@@ -44,13 +71,13 @@ if(!empty($_GET['username'])){
                     <div class="row text-center">
                       <div class="col-xs-6">
                         <a href="#">
-                          <span class="m-b-xs h4 block">245</span>
+                          <span class="m-b-xs h4 block"><?php echo $follows['followers'] ?></span>
                           <small class="text-muted">Followers</small>
                         </a>
                       </div>
                       <div class="col-xs-6">
                         <a href="#">
-                          <span class="m-b-xs h4 block">55</span>
+                          <span class="m-b-xs h4 block"><?php echo $follows['following'] ?></span>
                           <small class="text-muted">Following</small>
                         </a>
                       </div>
@@ -59,7 +86,7 @@ if(!empty($_GET['username'])){
 
                   <?php if(isset($_SESSION['user']) && ($_SESSION['user']['id'] != $user['id'])): ?>
                     <div class="btn-group btn-group-justified m-b">
-                      <a class="btn btn-success btn-rounded" data-toggle="button">
+                      <a data-user="<?php echo $user_id ?>" class="follow-btn btn btn-success btn-rounded <?php if(mysqli_num_rows($follow_btn)) echo 'active' ?>">
                         <span class="text">
                           <i class="fa fa-eye"></i> Follow
                         </span>
@@ -93,122 +120,64 @@ if(!empty($_GET['username'])){
             <section class="vbox">
               <header class="header bg-light lt">
                 <ul class="nav nav-tabs nav-white">
-                  <li class="active"><a href="#activity" data-toggle="tab">Activity</a></li>
-                  <li><a href="#playlists" data-toggle="tab">Playlists</a></li>
+                  <li class="active"><a href="#playlists" data-toggle="tab">Playlists</a></li>
                   <li><a href="#followers" data-toggle="tab">Followers</a></li>
                   <li><a href="#following" data-toggle="tab">Following</a></li>
                 </ul>
               </header>
               <section class="scrollable">
                 <div class="tab-content">
-                  <div class="tab-pane active" id="activity">
+                  <div class="tab-pane" id="playlists">
                     <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
-                      <li class="list-group-item">
-                        <a href="#" class="thumb-sm pull-left m-r-sm">
-                          <img src="assets/images/a0.png" class="img-circle">
-                        </a>
-                        <a href="#" class="clear">
-                          <small class="pull-right">3 minuts ago</small>
-                          <strong class="block">Drew Wllon</strong>
-                          <small>Wellcome and play this web application template ... </small>
-                        </a>
-                      </li>
-                      <li class="list-group-item">
-                        <a href="#" class="thumb-sm pull-left m-r-sm">
-                          <img src="assets/images/a1.png" class="img-circle">
-                        </a>
-                        <a href="#" class="clear">
-                          <small class="pull-right">1 hour ago</small>
-                          <strong class="block">Jonathan George</strong>
-                          <small>Morbi nec nunc condimentum...</small>
-                        </a>
-                      </li>
-                      <li class="list-group-item">
-                        <a href="#" class="thumb-sm pull-left m-r-sm">
-                          <img src="assets/images/a2.png" class="img-circle">
-                        </a>
-                        <a href="#" class="clear">
-                          <small class="pull-right">2 hours ago</small>
-                          <strong class="block">Josh Long</strong>
-                          <small>Vestibulum ullamcorper sodales nisi nec...</small>
-                        </a>
-                      </li>
-                      <li class="list-group-item">
-                        <a href="#" class="thumb-sm pull-left m-r-sm">
-                          <img src="assets/images/a3.png" class="img-circle">
-                        </a>
-                        <a href="#" class="clear">
-                          <small class="pull-right">1 day ago</small>
-                          <strong class="block">Jack Dorsty</strong>
-                          <small>Morbi nec nunc condimentum...</small>
-                        </a>
-                      </li>
-                      <li class="list-group-item">
-                        <a href="#" class="thumb-sm pull-left m-r-sm">
-                          <img src="assets/images/a4.png" class="img-circle">
-                        </a>
-                        <a href="#" class="clear">
-                          <small class="pull-right">3 days ago</small>
-                          <strong class="block">Morgen Kntooh</strong>
-                          <small>Mobile first web app for startup...</small>
-                        </a>
-                      </li>
-                      <li class="list-group-item">
-                        <a href="#" class="thumb-sm pull-left m-r-sm">
-                          <img src="assets/images/a5.png" class="img-circle">
-                        </a>
-                        <a href="#" class="clear">
-                          <small class="pull-right">Jun 21</small>
-                          <strong class="block">Yoha Omish</strong>
-                          <small>Morbi nec nunc condimentum...</small>
-                        </a>
-                      </li>
-                      <li class="list-group-item">
-                        <a href="#" class="thumb-sm pull-left m-r-sm">
-                          <img src="assets/images/a6.png" class="img-circle">
-                        </a>
-                        <a href="#" class="clear">
-                          <small class="pull-right">May 10</small>
-                          <strong class="block">Gole Lido</strong>
-                          <small>Vestibulum ullamcorper sodales nisi nec...</small>
-                        </a>
-                      </li>
-                      <li class="list-group-item">
-                        <a href="#" class="thumb-sm pull-left m-r-sm">
-                          <img src="assets/images/a7.png" class="img-circle">
-                        </a>
-                        <a href="#" class="clear">
-                          <small class="pull-right">Jan 2</small>
-                          <strong class="block">Jonthan Snow</strong>
-                          <small>Morbi nec nunc condimentum...</small>
-                        </a>
-                      </li>
-                      <li class="list-group-item" href="#email-content" data-toggle="class:show">
-                        <a href="#" class="thumb-sm pull-left m-r-sm">
-                          <img src="assets/images/a8.png" class="img-circle">
-                        </a>
-                        <a href="#" class="clear">
-                          <small class="pull-right">3 minuts ago</small>
-                          <strong class="block">Drew Wllon</strong>
-                          <small>Vestibulum ullamcorper sodales nisi nec sodales nisi nec sodales nisi nec...</small>
-                        </a>
-                      </li>
-                      <li class="list-group-item">
-                        <a href="#" class="thumb-sm pull-left m-r-sm">
-                          <img src="assets/images/a9.png" class="img-circle">
-                        </a>
-                        <a href="#" class="clear">
-                          <small class="pull-right">1 hour ago</small>
-                          <strong class="block">Jonathan George</strong>
-                          <small>Morbi nec nunc condimentum...</small>
-                        </a>
-                      </li>
+                      <?php if(mysqli_num_rows($playlists)): ?>
+                        <?php while($p = mysqli_fetch_assoc($playlists)): ?>
+                          <li class="list-group-item">
+                            <a href="#" class="thumb-sm pull-left m-r-sm">
+                              <img src="assets/images/logo.jpg" class="img-circle">
+                            </a>
+                            <a href="playlist.php?id=<?php echo $p['id'] ?>" class="clear">
+                              <strong class="block"><?php echo $p['title'] ?></strong>
+                              <small><i class="fa fa-headphones"></i> <?php echo $p['tracks'] ?></small>
+                            </a>
+                          </li>
+                        <?php endwhile ?>
+                      <?php endif ?>
                     </ul>
                   </div>
-
-                  <div class="tab-pane" id="playlists"></div>
-                  <div class="tab-pane" id="followers"></div>
-                  <div class="tab-pane" id="following"></div>
+                  <div class="tab-pane" id="followers">
+                    <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
+                      <?php if(mysqli_num_rows($followers)): ?>
+                        <?php while($f = mysqli_fetch_assoc($followers)): ?>
+                          <li class="list-group-item">
+                            <a href="#" class="thumb-sm pull-left m-r-sm">
+                              <img src="assets/images/a2.png" class="img-circle">
+                            </a>
+                            <a href="user.php?username=<?php echo $f['username'] ?>" class="clear">
+                              <strong class="block"><?php echo $f['username'] ?></strong>
+                              <small><i class="fa fa-map-marker"></i> <?php echo $f['country'] ?> <?php echo $f['city'] ?></small>
+                            </a>
+                          </li>
+                        <?php endwhile ?>
+                      <?php endif ?>
+                    </ul>
+                  </div>
+                  <div class="tab-pane" id="following">
+                    <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
+                      <?php if(mysqli_num_rows($followings)): ?>
+                        <?php while($f = mysqli_fetch_assoc($followings)): ?>
+                          <li class="list-group-item">
+                            <a href="#" class="thumb-sm pull-left m-r-sm">
+                              <img src="assets/images/a2.png" class="img-circle">
+                            </a>
+                            <a href="user.php?username=<?php echo $f['username'] ?>" class="clear">
+                              <strong class="block"><?php echo $f['username'] ?></strong>
+                              <small><i class="fa fa-map-marker"></i><?php echo $f['country'] ?> <?php echo $f['city'] ?></small>
+                            </a>
+                          </li>
+                        <?php endwhile ?>
+                      <?php endif ?>
+                    </ul>
+                  </div>
                 </div>
               </section>
             </section>
