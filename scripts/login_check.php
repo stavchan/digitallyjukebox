@@ -1,6 +1,5 @@
 <?php
 include_once 'db_conx.php';
-include_once 'functions.php';
 
 session_start();
 
@@ -8,8 +7,8 @@ if(empty($_POST['email']) && empty($_POST['password'])){
     $_SESSION['login_alert'] = 'You have not completed the required fields';
     header('location: ../login.php');
 }else{
-    $email = clean_input($_POST['email']);
-    $password = md5(clean_input($_POST['password']));
+    $email = mysqli_real_escape_string($conx, $_POST['email']);
+    $password = md5(mysqli_real_escape_string($_POST['password']));
 
     $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password' LIMIT 1";
     $result = mysqli_query($conx, $query);

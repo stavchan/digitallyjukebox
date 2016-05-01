@@ -1,10 +1,6 @@
 <?php
 define('SOUDNCLOUD_API','aa5da74ab07b51ce2c025fefa20ab19e');
 
-function clean_input($input){
-    return strip_tags(trim($input));
-}
-
 function preview_track($track, $rest=false){
     if($rest){
     	$data = rest_request('/tracks/'.$track);
