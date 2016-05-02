@@ -2,7 +2,7 @@
 
 session_start();
 if(isset($_SESSION['user'])){
-    header('location: index.php');
+    header('location: ../index.php');
 }
 
 include_once 'db_conx.php';
@@ -11,9 +11,9 @@ if(empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password
     $_SESSION['errors'][] = 'You have not completed all fields';
     header('location: ../signup.php');
 }else{
-    $username = mysqli_real_escape_string($_POST['username']);
-    $email = mysqli_real_escape_string($_POST['email']);
-    $password = md5(mysqli_real_escape_string($_POST['password']));
+    $username = mysqli_real_escape_string($conx, $_POST['username']);
+    $email = mysqli_real_escape_string($conx, $_POST['email']);
+    $password = md5(mysqli_real_escape_string($conx, $_POST['password']));
     $role = 'user';
 
     // Check if username exists
