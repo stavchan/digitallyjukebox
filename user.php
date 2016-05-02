@@ -127,7 +127,7 @@ if(!empty($_GET['username'])){
               </header>
               <section class="scrollable">
                 <div class="tab-content">
-                  <div class="tab-pane" id="playlists">
+                  <div class="tab-pane active" id="playlists">
                     <ul class="list-group no-radius m-b-none m-t-n-xxs list-group-lg no-border">
                       <?php if(mysqli_num_rows($playlists)): ?>
                         <?php while($p = mysqli_fetch_assoc($playlists)): ?>
