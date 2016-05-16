@@ -16,7 +16,7 @@ if(empty($_POST['email']) || empty($_POST['password'])){
     if(mysqli_num_rows($result)>0){
         $user = mysqli_fetch_assoc($result);
         $_SESSION['user']['username'] = $user['username'];
-        $_SESSION['user']['email'] = $user['username'];
+        $_SESSION['user']['email'] = $user['email'];
         $_SESSION['user']['id'] = $user['id'];
         $_SESSION['user']['role'] = $user['role'];
 
