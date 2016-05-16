@@ -3,7 +3,7 @@ include_once 'db_conx.php';
 
 session_start();
 
-if(empty($_POST['email']) && empty($_POST['password'])){
+if(empty($_POST['email']) || empty($_POST['password'])){
     $_SESSION['login_alert'] = 'You have not completed the required fields';
     header('location: ../login.php');
 }else{
