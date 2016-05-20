@@ -13,7 +13,7 @@ if(isset($_SESSION['user'])){
         $comment = mysqli_real_escape_string($conx, $_POST['comment']);
 
         $query = "INSERT INTO comments(user_id, comment, playlist_id) VALUES('$user_id', '$comment', '$playlist')";
-
+//elegxos
         if(mysqli_query($conx, $query)){
             $return['html'] = '<li class="list-group-item clearfix">';
             $return['html'] .=   '<a href="#" class="pull-left thumb-sm m-r">';
