@@ -16,11 +16,11 @@ if(empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password
     $password = md5(mysqli_real_escape_string($conx, $_POST['password']));
     $role = 'user';
 
-    // Check if username exists
+    //  elegxos diplwtyphs egrafhs me vash to username 
     $query = "SELECT * FROM users WHERE username = '$username' LIMIT 1";
     $username_result = mysqli_query($conx, $query);
 
-    // Check if email exists
+    // Check if email exists me vash to email
     $query = "SELECT * FROM users WHERE email = '$email' LIMIT 1";
     $email_result = mysqli_query($conx, $query);
 
@@ -35,6 +35,7 @@ if(empty($_POST['username']) || empty($_POST['email']) || empty($_POST['password
 
         header('location: ../signup.php');
     }else{
+       //kanoume mia egrafh xrhsth sth vash dedomenwn... result h true h false ws epistrofh
         $query = "INSERT INTO users(username, email, password, role) VALUES('$username', '$email', '$password', '$role')";
         $result = mysqli_query($conx, $query);
 
