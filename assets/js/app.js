@@ -375,9 +375,10 @@ Date.now = Date.now || function() { return +new Date; };
 }(jQuery);
 
 $(function(){
+//
   $client_id = 'aa5da74ab07b51ce2c025fefa20ab19e';
 
-  // init souncloud api account
+  // arxikopoioume th syndesh me to soundcloud api
   SC.initialize({ client_id: $client_id });
 
   // Refresh track list on homepage
@@ -393,9 +394,11 @@ $(function(){
   });
 
   // Play Track when click on it
+  //arxikopoioume ena event listener gia to stoixeio .playtrack
   $(document).on('click','.play-track', function(e){
-    e.preventDefault();
-
+    e.preventDefault(); // stamatame opoiadhpote proepilegmenh leitourgia 
+//this stoxeuei se auto pou energopoihthike to event  (.play track) parents (anazhthsh pros ta panw mexri na vrei to element me thn klash item
+//efoson to vrei pairnei thn timh sth idiothta data-track-id
     var trackId = $(this).parents('.item').data('track-id');
     playTrack(trackId);
   });
@@ -429,7 +432,7 @@ $(function(){
       }
     });
   });
-  
+  //anakthsh gia to track id
   $(document).on('click','.download-track',function(e){
   	e.preventDefault();
   	
@@ -453,7 +456,7 @@ $(function(){
       }
     });
   });
-
+//to kaloume gia emfanistei h forma mesw modal .. ekxwrhshs kommatiou se playlist
   $(document).on('click','.playlist-add',function(e){
     e.preventDefault();
     var trackId = $(this).parents('.item').data('track-id');
