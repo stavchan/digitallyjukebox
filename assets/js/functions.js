@@ -1,3 +1,4 @@
+
 function previewTracks(){
     $('.icon-refresh','#refresh-btn').addClass('fa-spin');
     $('#tracks-wrapper').fadeOut().empty();
@@ -10,12 +11,12 @@ function previewTracks(){
         state: 'finished',
         track_type: 'original'
     }).then(function(tracks) {
-
+//arxikopoihsh symvoloseiras
         var html = '';
         $.each(tracks, function(index, track){
             html += previewTrack(track);
         });
-
+//track wrapper = to element to opoio periexei ta mousika kommatia, to append prosthetei ta stoixeia gia thn emfanish tou mesw ths methodou fadein 
         $('#tracks-wrapper').append(html).hide().fadeIn();
         $('.icon-refresh','#refresh-btn').removeClass('fa-spin');
     });
@@ -75,9 +76,10 @@ function timeFormat(time){
 	var result = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds);
 	return result;
 }
-
+//arxikopoioume thn methodo epanalhpshs
 var $playerInterval;
 function playerInterval(player, duration){
+    //ekatharish methodou epanalhpshs gia thn apofygh anaparagwghs 2 mousikwn kommatiwn tautoxrona 
     clearInterval($playerInterval);
     if(typeof $player != 'undefined')
         $player.pause();
@@ -86,6 +88,7 @@ function playerInterval(player, duration){
     $player.play();
 
     // when audio controller changes state (e.g. from pause to play)
+   //jp sellector 
     $player.on('state-change', function(){
         if(player.isPaused()){
             $('.jp-play').show();
@@ -95,7 +98,7 @@ function playerInterval(player, duration){
             $('.jp-pause').show();
         }
     });
-
+//arxikopoihsh neas methodou epanalhpsh mousikou kommatiou (synexizei napaizei to kommati me thn enalagh ths selidas)
     $playerInterval = setInterval(function(){
         if($player.isPaused()){
             $('.jp-pause').hide();
@@ -112,10 +115,10 @@ function playerInterval(player, duration){
             $('.jp-unmute').show();
             $('.jp-mute').hide();
         }
-
+//kaloume ta antisoixa event listeners 
         bindPlayBtns($player);
         bindVolumeBtns($player);
-
+//ypologizetai se pio pososto anaparagwghs vrisketai o player 
         var currentPercent = parseInt((parseInt($player.currentTime()) / duration) * 100);
 
         $('.jp-play-bar').css('width', currentPercent+'%');
@@ -147,7 +150,7 @@ function showModal(content, options){
 		var modalBackdrop = 'true';
 		var modalTitle = '';
 	}
-	
+	//methodos emfanish andyomenou parathyrou
 	var modal = '<div id="'+modalId+'" class="modal fade" tabindex="-1" data-backdrop="'+modalBackdrop+'" role="dialog">';
 		modal += '<div class="modal-dialog">';
 		modal +=	'<div class="modal-content">';
@@ -194,7 +197,7 @@ function showFormErrors(form, errors){
         }
     });
 }
-
+//arxikopoioume ta event listenner 
 function bindVolumeBtns($player){
     $(document).on('click','.jp-mute, .jp-unmute', function(e){
         e.preventDefault();
