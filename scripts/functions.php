@@ -1,6 +1,8 @@
 <?php
+//arxikopoihsh statheras to opoio exoume paralavei apo thn selida soundcloud 
 define('SOUDNCLOUD_API','aa5da74ab07b51ce2c025fefa20ab19e');
 
+//dexetai 2 parametrous to kommati kai ean prepeu na xrhsimopoihthei rest arxitektonikh thn opoia exoume paralaveiapo to soundcloud
 function preview_track($track, $rest=false){
     if($rest){
     	$data = rest_request('/tracks/'.$track);
@@ -40,15 +42,16 @@ function preview_track($track, $rest=false){
         $html .= "</div>";
         return $html;
     }else{
-        return '';
+        return '';// epistrefei kenh symvoloseira ean to kommati den plhrh thn domh elegxou 
     }
 }
-
+//
 function rest_request($url, $options=false){
 	$url = 'https://api.soundcloud.com' . $url;
 	$clientid = SOUDNCLOUD_API; // Your API Client ID
 	
 	$url_options = '';
+	//gia kathe timh pou yparxei sto options thn prosarmozoume analoga gia to aithma http pou tha ginei sto soundcloud
 	if($options){
 		foreach ($options as $key => $value) {
 			$url_options .= "{$key}={$value}&";
@@ -56,9 +59,9 @@ function rest_request($url, $options=false){
 	}
 	
 	$url_options .= "format=json&client_id={$clientid}";
-	 
+	 //enwnoume tis 2 symvoloseires gia thn dhmiourgia katallhlou url
 	$soundcloud_url = "{$url}?{$url_options}";
-
+	//kanoume aithma sto url parapanw kai to apotelesma to epistrefoume sthn metavlhth data
 	$data = file_get_contents($soundcloud_url);
 	return json_decode($data);
 }
