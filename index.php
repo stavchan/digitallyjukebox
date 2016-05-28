@@ -1,7 +1,7 @@
 <?php
 
 include_once 'scripts/functions.php';
-
+//methodos rest_request ginetai aithma sthn soundcloud api me ta parakatw krithria
 $tracks = rest_request('/tracks',[
     'original_format'=> 'mp3',
     'sharing'=> 'public',
@@ -30,7 +30,9 @@ $tracks = rest_request('/tracks',[
                     <span class="bar5 a5 bg-danger dker"></span>
                   </span></h2>
                     <div id="tracks-wrapper" class="row row-sm">
+                    	<!-- mesw ths domhs epanalhpsh foreach emfanizoume ta komatia pou anakththikan mesw ths methodou rest_request -->
                     	<?php foreach($tracks as $track): ?>
+                    		<!-- mesw ths methodou preview track dhnoume thn katallhlh morfh sto kathe kommati to opoio ginetai prospelash-->
                     		<?php echo preview_track($track) ?>
                 		<?php endforeach; ?>
                     </div>
