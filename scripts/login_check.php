@@ -7,9 +7,11 @@ if(empty($_POST['email']) || empty($_POST['password'])){
     $_SESSION['login_alert'] = 'You have not completed the required fields';
     header('location: ../login.php');
 }else{
+    //arxikopoioume tis metavlhtes eisidodou apo th forma se topikes metavlhtes.. katharizontai apo perita kena xarakthres 
     $email = mysqli_real_escape_string($conx, $_POST['email']);
     $password = md5(mysqli_real_escape_string($conx, $_POST['password']));
 
+    //elegxoume ean yparxei o xrhsths sth vash dedomenwn me vash ta dedomena pou dothikan
     $query = "SELECT * FROM users WHERE email = '$email' AND password = '$password' LIMIT 1";
     $result = mysqli_query($conx, $query);
 
