@@ -1,4 +1,5 @@
 <?php
+//formes
 session_start();
 require_once 'scripts/functions.php';
 require_once 'scripts/db_conx.php';
