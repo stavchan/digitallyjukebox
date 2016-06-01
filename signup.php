@@ -1,5 +1,5 @@
 <?php
-
+//sessi
 session_start();
 
 if(isset($_SESSION['errors'])){
